@@ -1,4 +1,4 @@
-# Let's Code an API
+# Let's Code an API with Mongoose
 
 ## To run project
 

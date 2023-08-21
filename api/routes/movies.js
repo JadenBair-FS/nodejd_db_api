@@ -4,9 +4,24 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 router.get("/", (req, res, next) => {
-  res.json({
-    message: "Movies - GET",
-  });
+  Movie.find({})
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        message: "All movies",
+        movies: {
+          result,
+        },
+      });
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({
+        error: {
+          message: err.message,
+        },
+      });
+    });
 });
 router.post("/", (req, res, next) => {
   const newMovie = new Movie({
@@ -43,10 +58,24 @@ router.post("/", (req, res, next) => {
 });
 router.get("/:movieId", (req, res, next) => {
   const movieId = req.params.movieId;
-  res.json({
-    message: "Movies - GET",
-    id: movieId,
-  });
+  Movie.find({ _id: movieId })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        message: "All movies",
+        movies: {
+          result,
+        },
+      });
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({
+        error: {
+          message: err.message,
+        },
+      });
+    });
 });
 router.patch("/:movieId", (req, res, next) => {
   const movieId = req.params.movieId;
@@ -87,10 +116,20 @@ router.patch("/:movieId", (req, res, next) => {
 });
 router.delete("/:movieId", (req, res, next) => {
   const movieId = req.params.movieId;
-  res.json({
-    message: "Movie - DELETE",
-    id: movieId,
-  });
+  Movie.deleteOne({ _id: movieId })
+    .then((result) => {
+      res.status(200).json({
+        message: "Deleted Movie",
+        deleted: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: {
+          message: err.message,
+        },
+      });
+    });
 });
 
 module.exports = router;
