@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const directorRoutes = require("../api/routes/directors");
-const movieRoutes = require("../api/routes/movies");
-const mongoose = require("mongoose");
+const directorRoutes = require("./api/routes/directors");
+const movieRoutes = require("./api/routes/movies");
 require("dotenv").config();
 
 //middleware for logging
@@ -52,6 +51,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-// connect to mongodb
-mongoose.connect(`${process.env.mongoDBURL}`)
 module.exports = app;
